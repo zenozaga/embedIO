@@ -36,4 +36,5 @@ dependencies {
     implementation project(path: ':xplayer')
     implementation 'org.jsoup:jsoup:1.13.1'
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
+
 }

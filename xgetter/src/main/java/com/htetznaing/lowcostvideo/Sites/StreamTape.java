@@ -74,7 +74,7 @@ public class StreamTape {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebChromeClient(new WebChromeClient());
         webView.getSettings().setLoadsImagesAutomatically(false);
-        webView.getSettings().setBlockNetworkLoads (true);
+        //webView.getSettings().setBlockNetworkLoads (true);
 
 
 
@@ -93,72 +93,133 @@ public class StreamTape {
                 // do your stuff here
                 Log.e("URL",url);
 
+
+
                 if(url != null && url.indexOf("https://streamtape.net/e/") > -1){
                     view.evaluateJavascript(
-                            "(function() { " +
-                                    "function checkElement(ele, callback) {\n" +
+                            "(function() {\n" +
                                     "\n" +
-                                    "    var intervalo = setInterval(function () {\n" +
-                                    "        var element = document.querySelector(ele);\n" +
-                                    "        if (element) {\n" +
+                                    "\n" +
+                                    "\n" +
+                                    "    window.eventFire = function eventFire(el, etype, callback) {\n" +
+                                    "\n" +
+                                    "        var evt = document.createEvent(\"MouseEvents\");\n" +
+                                    "        evt.initMouseEvent(etype, true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);\n" +
+                                    "\n" +
+                                    "        var listenner = function(event) {\n" +
+                                    "            if (typeof callback == \"function\") callback(event);\n" +
+                                    "            el.removeEventListener(etype, listenner);\n" +
+                                    "        };\n" +
+                                    "\n" +
+                                    "        el.addEventListener(etype, listenner);\n" +
+                                    "        el.dispatchEvent(evt);\n" +
+                                    "\n" +
+                                    "    };\n" +
+                                    "\n" +
+                                    "\n" +
+                                    "    function checkElement(ele, callback) {\n" +
+                                    "\n" +
+                                    "        var intervalo = setInterval(function() {\n" +
+                                    "            var element = document.querySelector(ele);\n" +
+                                    "            if (element) {\n" +
+                                    "                clearInterval(intervalo);\n" +
+                                    "                callback(element);\n" +
+                                    "            }\n" +
+                                    "        }, 10);\n" +
+                                    "\n" +
+                                    "\n" +
+                                    "        return function cancel() {\n" +
                                     "            clearInterval(intervalo);\n" +
-                                    "            callback(element);\n" +
                                     "        }\n" +
-                                    "    }, 10);\n" +
                                     "\n" +
                                     "\n" +
-                                    "    return function cancel() {\n" +
-                                    "        clearInterval(intervalo);\n" +
+                                    "    }\n" +
+                                    "\n" +
+                                    "    function htmlDecode(input) {\n" +
+                                    "        var e = document.createElement('textarea');\n" +
+                                    "        e.innerHTML = input;\n" +
+                                    "        // handle case of empty input\n" +
+                                    "        return e.childNodes.length === 0 ? \"\" : e.childNodes[0].nodeValue;\n" +
                                     "    }\n" +
                                     "\n" +
                                     "\n" +
-                                    "};\n" +
+                                    "    function videLinkElement(callback) {\n" +
                                     "\n" +
-                                    "function htmlDecode(input) {\n" +
-                                    "    var e = document.createElement('textarea');\n" +
-                                    "    e.innerHTML = input;\n" +
-                                    "    // handle case of empty input\n" +
-                                    "    return e.childNodes.length === 0 ? \"\" : e.childNodes[0].nodeValue;\n" +
-                                    "};\n" +
+                                    "        return document.querySelector(\"#videolink\");\n" +
+                                    "\n" +
+                                    "    }\n" +
                                     "\n" +
                                     "\n" +
-                                    "function videLinkElement(callback) {\n" +
+                                    "    var cancelation = checkElement(\".plyr-container\", function() {\n" +
                                     "\n" +
-                                    "    return document.querySelector(\"#videolink\");\n" +
+                                    "        cancelation = null;\n" +
                                     "\n" +
-                                    "};\n" +
+                                    "        if (!videLinkElement()) {\n" +
+                                    "\n" +
+                                    "            window.location.href = \"data:blank_#ERROR#\";\n" +
+                                    "\n" +
+                                    "        } else {\n" +
+                                    "\n" +
+                                    "            checkElement(\"#mainvideo\", function(ele) {\n" +
+                                    "\n" +
+                                    "                var video = document.querySelector(\"video\");\n" +
+                                    "                ele = document.querySelector(\".plyr-overlay\");\n" +
+                                    "\n" +
+                                    "                eventFire(ele, \"click\", function() {});\n" +
+                                    "\n" +
+                                    "                var interval = setInterval(function() {\n" +
+                                    "\n" +
+                                    "                    if (video.paused) {\n" +
+                                    "                        eventFire(ele, \"click\", function() {});\n" +
+                                    "                    }\n" +
+                                    "\n" +
+                                    "                }, 1500);\n" +
                                     "\n" +
                                     "\n" +
-                                    "if (!videLinkElement()) {\n" +
+                                    "                var anotherintervalo = setInterval(function() {\n" +
                                     "\n" +
-                                    "        window.location.href = \"data:blank_#ERROR#\";\n" +
+                                    "                    var link = video.src;\n" +
                                     "\n" +
-                                    "} else {\n" +
+                                    "                    if (link) {\n" +
                                     "\n" +
-                                    "    checkElement(\"#mainvideo\", function (ele) {\n" +
-                                    "        ele.click();\n" +
-                                    "        var videolink = videLinkElement().innerHTML;\n" +
-                                    "        window.location.href = \"data:blank_#URL#https:\" + htmlDecode(videolink)\n" +
+                                    "                        clearInterval(anotherintervalo);\n" +
+                                    "                        clearInterval(interval);\n" +
+                                    "\n" +
+                                    "                        window.location.href = \"data:blank_#URL#\" + (link)\n" +
+                                    "\n" +
+                                    "                    };\n" +
+                                    "\n" +
+                                    "                }, 100);\n" +
+                                    "\n" +
+                                    "\n" +
+                                    "\n" +
+                                    "            });\n" +
+                                    "\n" +
+                                    "        };\n" +
+                                    "\n" +
+                                    "\n" +
                                     "    });\n" +
                                     "\n" +
-                                    "};\n" +
                                     "\n" +
                                     "\n" +
+                                    "    setTimeout(function() {\n" +
+                                    "\n" +
+                                    "        if (typeof cancelation == \"function\") {\n" +
+                                    "            cancelation();\n" +
+                                    "            window.location.href = \"data:blank_#ERROR#\";\n" +
+                                    "        }\n" +
+                                    "\n" +
+                                    "    }, 10000);\n" +
                                     "\n" +
                                     "\n" +
-                                    "return ('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>'); })();",
-                            new ValueCallback<String>() {
-                                @Override
-                                public void onReceiveValue(String html) {
-                                    Log.e("HTML", html);
-                                    // code here
-                                }
-                            });
+                                    "})();",
+                            null);
 
                 }else if( url != null && url.indexOf("blank_#URL#") > -1){
 
                     String link = url.split("blank_#URL#")[1];
 
+                    Log.e("Link",link);
                     destroyWebView();
 
                     try{
