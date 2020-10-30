@@ -19,6 +19,7 @@ import com.htetznaing.lowcostvideo.Sites.GoUnlimited;
 import com.htetznaing.lowcostvideo.Sites.Muvix;
 import com.htetznaing.lowcostvideo.Sites.VideoBM;
 import com.htetznaing.lowcostvideo.Sites.Vudeo;
+import com.htetznaing.lowcostvideo.Sites.Yourupload;
 import com.htetznaing.lowcostvideo.Utils.DailyMotionUtils;
 import com.htetznaing.lowcostvideo.Core.GDrive2020;
 import com.htetznaing.lowcostvideo.Model.XModel;
@@ -63,7 +64,7 @@ public class LowCostVideo {
     private final String vidoza = "https?:\\/\\/(www\\.)?(vidoza)\\.[^\\/,^\\.]{2,}.+";
     private final String uptostream = "https?:\\/\\/(www\\.)?(uptostream|uptobox)\\.[^\\/,^\\.]{2,}.+";
     private final String fansubs = "https?:\\/\\/(www\\.)?(fansubs\\.tv)\\/(v|watch)\\/.+";
-    private final String fembed = "https?:\\/\\/(www\\.)?(fembed|vcdn)\\.[^\\/,^\\.]{2,}\\/(v|f)\\/.+";
+    private final String fembed = "https?:\\/\\/(www\\.)?(fembed|vcdn|embedsito)\\.[^\\/,^\\.]{2,}\\/(v|f)\\/.+";
     private final String megaup = "https?:\\/\\/(www\\.)?(megaup)\\.[^\\/,^\\.]{2,}\\/.+";
     private final String gounlimited = "https?:\\/\\/(www\\.)?(gounlimited)\\.[^\\/,^\\.]{2,}\\/.+";
     private final String cocoscope = "https?:\\/\\/(www\\.)?(cocoscope)\\.[^\\/,^\\.]{2,}\\/(watch\\?v).+";
@@ -76,9 +77,10 @@ public class LowCostVideo {
     private final String bitTube = "https?:\\/\\/(www\\.)?(bittube\\.video\\/videos)\\/(watch|embed)\\/.+";
     private final String videoBIN = "https?:\\/\\/(www\\.)?(videobin\\.co)\\/.+";
     private final String fourShared = "https?:\\/\\/(www\\.)?(4shared\\.com)\\/(video|web\\/embed)\\/.+";
-    private final String streamtape = "https?:\\/\\/(www\\.)?(streamtape\\.(com|net))\\/(v)\\/.+";
+    private final String streamtape = "https?:\\/\\/(www\\.)?(streamtape\\.(com|net))\\/(v|e)\\/.+";
     private final String vudeo = "https?:\\/\\/(www\\.)?(vudeo\\.net)\\/.+";
     private final String upstream = "https?:\\/\\/(www\\.)?(upstream\\.to)\\/.+";
+    private final String yourupload = "https?:\\/\\/(www\\.)?(yourupload\\.(com|net))\\/(embed|e)\\/.+";
 
     public LowCostVideo(@NonNull Context context){
         this.context=context;
@@ -87,7 +89,10 @@ public class LowCostVideo {
 
     public void find(String url){
 
-        if (check(upstream, url)) {
+        if (check(yourupload, url)) {
+            //https://www.mp4upload.com/
+            Yourupload.fetch(url,onComplete);
+        }else if  (check(upstream, url)) {
             //https://www.mp4upload.com/
             Upstream.fetch(url,onComplete);
         }else if (check(mp4upload, url)) {

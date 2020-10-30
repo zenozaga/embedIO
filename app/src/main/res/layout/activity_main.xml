@@ -22,7 +22,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
-            android:text="https://streamtape.com/v/mPRZdvG3MLtbbOV/"
+            android:text="https://www.yourupload.com/embed/X3t4mP87jxfK"
             android:id="@+id/edit_query"
             android:hint="Enter your url"
             android:singleLine="true"

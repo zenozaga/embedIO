@@ -160,10 +160,10 @@ public class StreamTape {
                                     "\n" +
                                     "        } else {\n" +
                                     "\n" +
-                                    "            checkElement(\"#mainvideo\", function(ele) {\n" +
+                                    "            checkElement(\"#mainvideo\", function(mainvideo) {\n" +
                                     "\n" +
                                     "                var video = document.querySelector(\"video\");\n" +
-                                    "                ele = document.querySelector(\".plyr-overlay\");\n" +
+                                    "                var ele = document.querySelector(\".plyr-overlay\") || mainvideo;\n" +
                                     "\n" +
                                     "                eventFire(ele, \"click\", function() {});\n" +
                                     "\n" +
