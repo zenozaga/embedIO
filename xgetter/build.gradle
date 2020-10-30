@@ -6,7 +6,7 @@ version='3.0'
 android {
     compileSdkVersion 26
     defaultConfig {
-        minSdkVersion 17
+        minSdkVersion 20
         targetSdkVersion 26
         versionCode 24
         versionName "3.0"

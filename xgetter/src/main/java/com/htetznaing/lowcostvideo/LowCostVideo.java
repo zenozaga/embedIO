@@ -34,6 +34,7 @@ import com.htetznaing.lowcostvideo.Sites.SendVid;
 import com.htetznaing.lowcostvideo.Sites.SolidFiles;
 import com.htetznaing.lowcostvideo.Sites.TW;
 import com.htetznaing.lowcostvideo.Sites.UpToStream;
+import com.htetznaing.lowcostvideo.Sites.Upstream;
 import com.htetznaing.lowcostvideo.Sites.VK;
 import com.htetznaing.lowcostvideo.Sites.Vidoza;
 
@@ -75,8 +76,9 @@ public class LowCostVideo {
     private final String bitTube = "https?:\\/\\/(www\\.)?(bittube\\.video\\/videos)\\/(watch|embed)\\/.+";
     private final String videoBIN = "https?:\\/\\/(www\\.)?(videobin\\.co)\\/.+";
     private final String fourShared = "https?:\\/\\/(www\\.)?(4shared\\.com)\\/(video|web\\/embed)\\/.+";
-    private final String streamtape = "https?:\\/\\/(www\\.)?(streamtape\\.com)\\/(v)\\/.+";
+    private final String streamtape = "https?:\\/\\/(www\\.)?(streamtape\\.(com|net))\\/(v)\\/.+";
     private final String vudeo = "https?:\\/\\/(www\\.)?(vudeo\\.net)\\/.+";
+    private final String upstream = "https?:\\/\\/(www\\.)?(upstream\\.to)\\/.+";
 
     public LowCostVideo(@NonNull Context context){
         this.context=context;
@@ -84,7 +86,11 @@ public class LowCostVideo {
     }
 
     public void find(String url){
-        if (check(mp4upload, url)) {
+
+        if (check(upstream, url)) {
+            //https://www.mp4upload.com/
+            Upstream.fetch(url,onComplete);
+        }else if (check(mp4upload, url)) {
             //https://www.mp4upload.com/
             MP4Upload.fetch(url,onComplete);
         } else if (check(sendvid, url)) {
@@ -145,7 +151,7 @@ public class LowCostVideo {
         }else if (check(fourShared,url)){
             StreamKIWI.get(context,url,onComplete);
         }else if (check(streamtape,url)){
-            StreamTape.fetch(url,onComplete);
+            StreamTape.fetch(context,url,onComplete);
         }else if (check(vudeo,url)) {
             Vudeo.fetch(url, onComplete);
         }else onComplete.onError();
