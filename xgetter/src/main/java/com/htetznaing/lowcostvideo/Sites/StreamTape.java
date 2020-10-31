@@ -209,7 +209,7 @@ public class StreamTape {
                                     "            window.location.href = \"data:blank_#ERROR#\";\n" +
                                     "        }\n" +
                                     "\n" +
-                                    "    }, 10000);\n" +
+                                    "    }, 20000);\n" +
                                     "\n" +
                                     "\n" +
                                     "})();",
