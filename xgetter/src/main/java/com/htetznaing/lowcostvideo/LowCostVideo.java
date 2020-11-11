@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.androidnetworking.AndroidNetworking;
 import com.htetznaing.lowcostvideo.Sites.BitTube;
+import com.htetznaing.lowcostvideo.Sites.GooglePhoto;
 import com.htetznaing.lowcostvideo.Sites.MegaUp;
 import com.htetznaing.lowcostvideo.Sites.StreamKIWI;
 import com.htetznaing.lowcostvideo.Sites.StreamTape;
@@ -81,6 +82,7 @@ public class LowCostVideo {
     private final String vudeo = "https?:\\/\\/(www\\.)?(vudeo\\.net)\\/.+";
     private final String upstream = "https?:\\/\\/(www\\.)?(upstream\\.to)\\/.+";
     private final String yourupload = "https?:\\/\\/(www\\.)?(yourupload\\.(com|net))\\/(embed|e)\\/.+";
+    private final String googlephotod = "https?:\\/\\/(www\\.)?(photos\\.app\\.goo\\.gl)\\/.+";
 
     public LowCostVideo(@NonNull Context context){
         this.context=context;
@@ -89,7 +91,10 @@ public class LowCostVideo {
 
     public void find(String url){
 
-        if (check(yourupload, url)) {
+        if (check(googlephotod, url)) {
+            //https://www.mp4upload.com/
+            GooglePhoto.fetch(url,onComplete);
+        }else if (check(yourupload, url)) {
             //https://www.mp4upload.com/
             Yourupload.fetch(url,onComplete);
         }else if  (check(upstream, url)) {

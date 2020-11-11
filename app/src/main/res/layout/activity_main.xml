@@ -22,7 +22,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
-            android:text="https://www.yourupload.com/embed/X3t4mP87jxfK"
+            android:text="https://photos.app.goo.gl/cN5i4B4dxmRQruqt6"
             android:id="@+id/edit_query"
             android:hint="Enter your url"
             android:singleLine="true"
