@@ -78,6 +78,7 @@ public class StreamTape {
 
 
 
+
         if (ID == null) {
             onTaskCompleted.onError();
             return;
@@ -145,7 +146,7 @@ public class StreamTape {
                                     "\n" +
                                     "    function videLinkElement(callback) {\n" +
                                     "\n" +
-                                    "        return document.querySelector(\"#videolink\");\n" +
+                                    "        return document.querySelector(\"video\");\n" +
                                     "\n" +
                                     "    }\n" +
                                     "\n" +
