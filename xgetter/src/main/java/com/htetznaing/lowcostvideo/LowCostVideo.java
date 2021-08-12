@@ -1,6 +1,7 @@
 package com.htetznaing.lowcostvideo;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -21,6 +22,7 @@ import com.htetznaing.lowcostvideo.Sites.Muvix;
 import com.htetznaing.lowcostvideo.Sites.VideoBM;
 import com.htetznaing.lowcostvideo.Sites.Vudeo;
 import com.htetznaing.lowcostvideo.Sites.Yourupload;
+import com.htetznaing.lowcostvideo.Sites.Zplayer;
 import com.htetznaing.lowcostvideo.Utils.DailyMotionUtils;
 import com.htetznaing.lowcostvideo.Core.GDrive2020;
 import com.htetznaing.lowcostvideo.Model.XModel;
@@ -83,6 +85,7 @@ public class LowCostVideo {
     private final String upstream = "https?:\\/\\/(www\\.)?(upstream\\.to)\\/.+";
     private final String yourupload = "https?:\\/\\/(www\\.)?(yourupload\\.(com|net))\\/(embed|e)\\/.+";
     private final String googlephotod = "https?:\\/\\/(www\\.)?(photos\\.app\\.goo\\.gl)\\/.+";
+    private final String zplayer = "https?:\\/\\/(www\\.|v2\\.)?(zplayer\\.(com|net|live))\\/(embed|video)\\/(.+)";
 
     public LowCostVideo(@NonNull Context context){
         this.context=context;
@@ -158,6 +161,8 @@ public class LowCostVideo {
             BitTube.fetch(url,onComplete);
         }else if (check(videoBIN,url)){
             VideoBIN.fetch(url,onComplete);
+        }else if (check(zplayer,url)){
+            Zplayer.fetch(context,url,onComplete);
         }else if (check(fourShared,url)){
             StreamKIWI.get(context,url,onComplete);
         }else if (check(streamtape,url)){

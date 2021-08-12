@@ -22,7 +22,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
-            android:text="https://photos.app.goo.gl/cN5i4B4dxmRQruqt6"
+            android:text="https://v2.zplayer.live/embed/esu6gsz4mgid"
             android:id="@+id/edit_query"
             android:hint="Enter your url"
             android:singleLine="true"

@@ -79,6 +79,7 @@ public class StreamTape {
 
 
 
+
         if (ID == null) {
             onTaskCompleted.onError();
             return;
@@ -92,7 +93,6 @@ public class StreamTape {
 
             public void onPageFinished(WebView view, String url) {
                 // do your stuff here
-                Log.e("URL",url);
 
 
 
